@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: "gateway"
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8181/realms/fitness-oauth2/protocol/openid-connect/certs
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+#      server:
+#        webmvc:
+      routes:
+        - id: userservice
+          uri: lb://USERSERVICE
+          predicates:
+            - Path=/api/users/**
+
+        - id: activityservice
+          uri: lb://ACTIVITYSERVICE
+          predicates:
+            - Path=/api/activities/**
+
+        - id: aiservice
+          uri: lb://AISERVICE
+          predicates:
+            - Path=/api/recommendation/**
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+server:
+  port: 8080
