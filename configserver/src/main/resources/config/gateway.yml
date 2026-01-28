@@ -12,23 +12,23 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
-#      server:
-#        webmvc:
-      routes:
-        - id: userservice
-          uri: lb://USERSERVICE
-          predicates:
-            - Path=/api/users/**
+      server:
+        webflux:
+          routes:
+            - id: userservice
+              uri: lb://USERSERVICE
+              predicates:
+                - Path=/api/users/**
 
-        - id: activityservice
-          uri: lb://ACTIVITYSERVICE
-          predicates:
-            - Path=/api/activities/**
+            - id: activityservice
+              uri: lb://ACTIVITYSERVICE
+              predicates:
+                - Path=/api/activities/**
 
-        - id: aiservice
-          uri: lb://AISERVICE
-          predicates:
-            - Path=/api/recommendation/**
+            - id: aiservice
+              uri: lb://AISERVICE
+              predicates:
+                - Path=/api/recommendation/**
 eureka:
   client:
     serviceUrl:
